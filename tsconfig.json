@@ -14,7 +14,8 @@
       "@styles/*": ["styles/*"],
       "@common": ["framework/common"],
       "@framework": ["@framework/shopify"],
-      "@framework/*": ["@framework/shopify/*"]
+      "@framework/*": ["@framework/shopify/*"],
+      "@assets/*": ["@assets/*"]
     },
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
