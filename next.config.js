@@ -3,6 +3,9 @@
 const { withFrameworkConfig } = require('./framework/common/config');
 
 const nextConfig = withFrameworkConfig({
+  framework: {
+    name: 'shopify',
+  },
   reactStrictMode: true,
   swcMinify: true,
   i18n: {

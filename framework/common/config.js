@@ -1,11 +1,31 @@
 const path = require('path');
 const fs = require('fs');
 const merge = require('deepmerge');
+const prettier = require('prettier');
+
+const ALLOWED_FRAMEWORKS = ['shopify', 'bigcommerce', 'shopify_local'];
 
 // merging 2 framweork configs // deepmerge
 function withFrameworkConfig(defaultConfig = {}) {
   // @framework would point to another framework programmatically
-  const framework = 'shopify';
+
+  let framework = defaultConfig?.framework.name;
+
+  if (!framework) {
+    throw new Error('No framework specified, please add a valid provider');
+  }
+
+  if (!ALLOWED_FRAMEWORKS.includes(framework)) {
+    throw new Error(
+      `The api framework: ${framework} is not supported, use ${ALLOWED_FRAMEWORKS.join(
+        ', '
+      )}`
+    );
+  }
+
+  if (framework === 'shopify_local') {
+    framework = 'shopify';
+  }
 
   const frameworkNextConfig = require(path.join(
     '../',
@@ -22,7 +42,12 @@ function withFrameworkConfig(defaultConfig = {}) {
     `@framework/${framework}/*`,
   ];
 
-  fs.writeFileSync(tsPath, JSON.stringify(tsconfig, null, 2));
+  fs.writeFileSync(
+    tsPath,
+    prettier.format(JSON.stringify(tsconfig), {
+      parser: 'json',
+    })
+  );
 
   return config;
 }
