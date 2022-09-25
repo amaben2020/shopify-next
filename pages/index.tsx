@@ -9,6 +9,7 @@ export default function Home({
 
 export async function getStaticProps() {
   const products = await getAllProducts();
+
   return {
     props: {
       products,
