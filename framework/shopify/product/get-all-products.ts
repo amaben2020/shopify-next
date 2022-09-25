@@ -1,11 +1,19 @@
+import { ProductConnection } from "../schema"
 import { fetchApi } from "../utils/fetch-api"
 import { getAllProductsQuery } from "../utils/queries/get-all-products"
 
-export const getAllProducts = async (): Promise<any[]> => {
+type ReturnType = {
+  products: ProductConnection
+}
 
-  const data = await fetchApi({ query: getAllProductsQuery })
+export const getAllProducts = async (): Promise<any> => {
 
-  return data.data
+  const { data } = await fetchApi<ReturnType>({ query: getAllProductsQuery })
+
+  // data normalization
+  return data.products.edges.map(({ node: product }) => {
+    return product
+  }) ?? []
 }
 
 
