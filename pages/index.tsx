@@ -1,10 +1,11 @@
+import { Layout } from '@/components/common';
 import { getAllProducts } from '@/framework/shopify/product/get-all-products';
 import type { InferGetStaticPropsType } from 'next';
 
 export default function Home({
   products,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  return <div>{JSON.stringify(products)}</div>;
+  return <Layout>{JSON.stringify(products)}</Layout>;
 }
 
 export async function getStaticProps() {

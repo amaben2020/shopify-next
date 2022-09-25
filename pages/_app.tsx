@@ -1,7 +1,11 @@
 import { Layout } from '@/components/common';
 import { AppProps } from 'next/app';
+import { FC } from 'react';
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({
+  Component,
+  pageProps,
+}: AppProps & { Component: { Layout: FC } }) {
   return (
     <Layout>
       <Component {...pageProps} />
